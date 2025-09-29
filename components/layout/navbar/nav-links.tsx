@@ -91,6 +91,16 @@ const DropdownPortal = ({
           className="flex items-center gap-3 px-4 py-3 text-sm text-fg-text-contrast hover:bg-bg-bg-subtle transition-colors cursor-pointer w-full text-left"
           onClick={(e) => {
             e.stopPropagation();
+            handleLinkClick('/pricing');
+          }}
+        >
+          <PiHouseDuotone className="w-4 h-4" />
+          Pricing
+        </button>
+        <button
+          className="flex items-center gap-3 px-4 py-3 text-sm text-fg-text-contrast hover:bg-bg-bg-subtle transition-colors cursor-pointer w-full text-left"
+          onClick={(e) => {
+            e.stopPropagation();
             handleLinkClick(paths.home);
           }}
         >

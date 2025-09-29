@@ -7,6 +7,9 @@ import { navigateWithLoader } from '@/lib/utils/navigation';
 import { TickIcon, CrossIcon, PremiumLineIcon, PremiumTickIcon } from '@/components/ui/icons';
 import { YellowButton, SaveChangesButton } from '@/components/ui/buttons';
 import MeasurementsSection from '@/components/dashboard/measurements-section';
+import { getStripe } from '@/lib/utils/stripe/client';
+import { checkoutWithStripe } from '@/lib/utils/stripe/server';
+import { getErrorRedirect } from '@/lib/utils/helpers';
 
 export default function DashboardClient({
   session,
@@ -61,6 +64,9 @@ export default function DashboardClient({
     newPassword.trim() !== '' &&
     confirmPassword.trim() !== '';
 
+  // Subscription state
+  const [isSubscribing, setIsSubscribing] = useState(false);
+
   const updateName = async (formData: FormData) => {
     const newName = formData.get('name') as string;
     if (user) {
@@ -105,6 +111,50 @@ export default function DashboardClient({
   const handleSignOut = async () => {
     await supabase.auth.signOut();
     navigateWithLoader(router, '/signin');
+  };
+
+  const handleSubscribe = async () => {
+    if (!user) {
+      router.push('/signin');
+      return;
+    }
+
+    setIsSubscribing(true);
+    
+    try {
+      // For now, we'll use a placeholder price ID
+      // In production, you'll need to create actual products/prices in Stripe
+      const response = await fetch('/api/create-checkout-session', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          priceId: 'price_premium_month', // Replace with actual Stripe price ID
+          planType: 'monthly'
+        }),
+      });
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        throw new Error(data.error || 'Failed to create checkout session');
+      }
+
+      const stripe = await getStripe();
+      await stripe?.redirectToCheckout({ sessionId: data.sessionId });
+    } catch (error) {
+      console.error('Subscription error:', error);
+      router.push(
+        getErrorRedirect(
+          '/dashboard',
+          'Subscription failed.',
+          'Please try again later or contact support.',
+        ),
+      );
+    } finally {
+      setIsSubscribing(false);
+    }
   };
 
   return (
@@ -256,9 +306,11 @@ export default function DashboardClient({
                 {/* Subscribe Button */}
                 <div className="w-full max-w-[280px]">
                   <YellowButton
+                    onClick={handleSubscribe}
                     className="w-full px-4 py-3 rounded-md font-bold text-sm text-primary-on-primary hover:bg-primary-solid-hover transition-colors whitespace-nowrap"
+                    disabled={isSubscribing}
                   >
-                    Subscribe to Monthly Plan
+                    {isSubscribing ? 'Processing...' : 'Subscribe to Monthly Plan'}
                   </YellowButton>
                 </div>
               </div>
