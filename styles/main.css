@@ -1,0 +1,337 @@
+@import url('https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@400;600;700;800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Clash+Display:wght@200;300;400;500;600;700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --bg-default: #fff;
+  --bg-default-bg: #FFFFFF;
+  --bg-base: #fcfcfc;
+  --bg-bg-subtle: #f8f9fa;
+  --bg-bg: #f3f3f3;
+  --bg-bg-hover: #ededed;
+  --bg-bg-active: #e8e8e8;
+  --bg-hover: #ECEEF0;
+  --fg-line: #dfe3e6;
+  --fg-border: #dbdbdb;
+  --fg-border-hover: #c7c7c7;
+  --fg-solid: #8f8f8f;
+  --fg-solid-hover: #858585;
+  --fg-text: #6f6f6f;
+  --fg-text-muted: #687076;
+  --fg-text-contrast: #11181c;
+  --fg-default: #000;
+
+  --primary-base: #fdfcfe;
+  --primary-bg-subtle: #fffbe9;
+  --primary-bg: #fff4be;
+  --primary-bg-hover: #ede9fe;
+  --primary-bg-active: #e4defc;
+  --primary-line: #d7cff9;
+  --primary-border: #c4b8f3;
+  --primary-border-hover: #aa99ec;
+  --primary-solid: #ffd204;
+  --primary-solid-hover: #e6bd04;
+  --primary-text: #5746af;
+  --primary-text-contrast: #20134b;
+  --primary-on-primary: #000;
+
+  --secondary-base: #fffcfc;
+  --secondary-bg-subtle: #fff8f7;
+  --secondary-bg: #fff0ee;
+  --secondary-bg-hover: #ffe6e2;
+  --secondary-bg-active: #fdd8d3;
+  --secondary-line: #fac7be;
+  --secondary-border: #f3b0a2;
+  --secondary-border-hover: #ea9280;
+  --secondary-solid: #e54d2e;
+  --secondary-solid-hover: #db4324;
+  --secondary-text: #ca3214;
+  --secondary-text-contrast: #341711;
+  --secondary-on-secondary: #fff;
+
+  --success-base: #fbfefc;
+  --success-bg-subtle: #f2fcf5;
+  --success-bg: #e9f9ee;
+  --success-bg-hover: #ddf3e4;
+  --success-bg-active: #ccebd7;
+  --success-line: #b4dfc4;
+  --success-border: #92ceac;
+  --success-border-hover: #5bb98c;
+  --success-solid: #30a46c;
+  --success-solid-hover: #299764;
+  --success-text: #18794e;
+  --success-text-contrast: #153226;
+  --success-on-success: #fff;
+
+  --warning-base: #fefdfb;
+  --warning-bg-subtle: #fffae8;
+  --warning-bg: #fff4d3;
+  --warning-bg-hover: #ffeab3;
+  --warning-bg-active: #ffdf8c;
+  --warning-line: #fdd26e;
+  --warning-border: #ebc160;
+  --warning-border-hover: #d9a92b;
+  --warning-solid: #ffc700;
+  --warning-solid-hover: #fabe00;
+  --warning-text: #967100;
+  --warning-text-contrast: #46391b;
+  --warning-on-warning: #000;
+
+  --alert-base: #fffcfc;
+  --alert-bg-subtle: #fff7f7;
+  --alert-bg: #ffeaea;
+  --alert-bg-hover: #ffdbda;
+  --alert-bg-active: #ffccca;
+  --alert-line: #ffbbba;
+  --alert-border: #f9a7a6;
+  --alert-border-hover: #f08c8c;
+  --alert-solid: #dc143c;
+  --alert-solid-hover: #cc002f;
+  --alert-text: #d60337;
+  --alert-text-contrast: #690e1b;
+  --alert-on-alert: #fff;
+
+  --info-base: #fafdfe;
+  --info-bg-subtle: #f2fcfd;
+  --info-bg: #e7f9fb;
+  --info-bg-hover: #d8f3f6;
+  --info-bg-active: #c4eaef;
+  --info-line: #aadee6;
+  --info-border: #84cdda;
+  --info-border-hover: #3db9cf;
+  --info-solid: #05a2c2;
+  --info-solid-hover: #0894b3;
+  --info-text: #0c7792;
+  --info-text-contrast: #04313c;
+  --info-on-info: #fff;
+
+  --overlay-100: #ffffff00;
+  --overlay-200: #ffffff03;
+  --overlay-300: #ffffff0a;
+  --overlay-400: #ffffff0d;
+  --overlay-500: #ffffff17;
+  --overlay-600: #ffffff21;
+  --overlay-700: #ffffff2e;
+  --overlay-800: #ffffff40;
+  --overlay-900: #ffffff61;
+  --overlay-1000: #ffffff73;
+  --overlay-1100: #ffffff96;
+  --overlay-1200: #ffffffeb;
+
+  --overlay-modal: #00000080;
+
+  /* Canvas color mapping */
+  --canvas-base: var(--bg-base);
+  --canvas-bg-subtle: var(--bg-bg-subtle);
+  --canvas-bg: var(--bg-bg);
+  --canvas-bg-hover: var(--bg-bg-hover);
+  --canvas-bg-active: var(--bg-bg-active);
+  --canvas-line: var(--fg-line);
+  --canvas-border: var(--fg-border);
+  --canvas-border-hover: var(--fg-border-hover);
+  --canvas-solid: var(--fg-solid);
+  --canvas-solid-hover: var(--fg-solid-hover);
+  --canvas-text: var(--fg-text);
+  --canvas-text-contrast: var(--fg-text-contrast);
+  --canvas-on-canvas: var(--fg-default);
+
+  /* Additional button colors */
+  --button-border: #c1c8cd;
+}
+
+*,
+*:before,
+*:after {
+  box-sizing: inherit;
+}
+
+html {
+  height: 100%;
+  box-sizing: border-box;
+  touch-action: manipulation;
+  font-feature-settings:
+    'case' 1,
+    'rlig' 1,
+    'calt' 0;
+}
+
+html,
+body {
+  font-family:
+    -apple-system, system-ui, BlinkMacSystemFont, 'Helvetica Neue', 'Helvetica',
+    sans-serif;
+  text-rendering: optimizeLegibility;
+  -moz-osx-font-smoothing: grayscale;
+  font-synthesis-weight: none;
+}
+
+body {
+  position: relative;
+  min-height: 100%;
+  margin: 0;
+}
+
+a {
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+}
+
+p a {
+  @apply hover:underline;
+}
+
+.animated {
+  -webkit-animation-duration: 1s;
+  animation-duration: 1s;
+  -webkit-animation-duration: 1s;
+  animation-duration: 1s;
+  -webkit-animation-fill-mode: both;
+  animation-fill-mode: both;
+}
+
+.height-screen-helper {
+  min-height: calc(100vh - 80px);
+}
+
+::-webkit-scrollbar {
+  @apply w-2;
+}
+
+::-webkit-scrollbar:horizontal {
+  @apply w-2;
+}
+
+::-webkit-scrollbar-track {
+  @apply rounded-[9px] bg-transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  @apply rounded-[9px] bg-fg-border hover:bg-fg-border-hover;
+}
+
+@layer base {
+  @theme inline {
+    --color-canvas-base: var(--canvas-base);
+    --color-canvas-bg-subtle: var(--canvas-bg-subtle);
+    --color-canvas-bg: var(--canvas-bg);
+    --color-canvas-bg-hover: var(--canvas-bg-hover);
+    --color-canvas-bg-active: var(--canvas-bg-active);
+    --color-canvas-line: var(--canvas-line);
+    --color-canvas-border: var(--canvas-border);
+    --color-canvas-border-hover: var(--canvas-border-hover);
+    --color-canvas-solid: var(--canvas-solid);
+    --color-canvas-solid-hover: var(--canvas-solid-hover);
+    --color-canvas-text: var(--canvas-text);
+    --color-canvas-text-contrast: var(--canvas-text-contrast);
+    --color-canvas-on-canvas: var(--canvas-on-canvas);
+
+    --color-primary-base: var(--primary-base);
+    --color-primary-bg-subtle: var(--primary-bg-subtle);
+    --color-primary-bg: var(--primary-bg);
+    --color-primary-bg-hover: var(--primary-bg-hover);
+    --color-primary-bg-active: var(--primary-bg-active);
+    --color-primary-line: var(--primary-line);
+    --color-primary-border: var(--primary-border);
+    --color-primary-border-hover: var(--primary-border-hover);
+    --color-primary-solid: var(--primary-solid);
+    --color-primary-solid-hover: var(--primary-solid-hover);
+    --color-primary-text: var(--primary-text);
+    --color-primary-text-contrast: var(--primary-text-contrast);
+    --color-primary-on-primary: var(--primary-on-primary);
+
+    --color-success-base: var(--success-base);
+    --color-success-bg-subtle: var(--success-bg-subtle);
+    --color-success-bg: var(--success-bg);
+    --color-success-bg-hover: var(--success-bg-hover);
+    --color-success-bg-active: var(--success-bg-active);
+    --color-success-line: var(--success-line);
+    --color-success-border: var(--success-border);
+    --color-success-border-hover: var(--success-border-hover);
+    --color-success-solid: var(--success-solid);
+    --color-success-solid-hover: var(--success-solid-hover);
+    --color-success-text: var(--success-text);
+    --color-success-text-contrast: var(--success-text-contrast);
+    --color-success-on-success: var(--success-on-success);
+
+    --color-warning-base: var(--warning-base);
+    --color-warning-bg-subtle: var(--warning-bg-subtle);
+    --color-warning-bg: var(--warning-bg);
+    --color-warning-bg-hover: var(--warning-bg-hover);
+    --color-warning-bg-active: var(--warning-bg-active);
+    --color-warning-line: var(--warning-line);
+    --color-warning-border: var(--warning-border);
+    --color-warning-border-hover: var(--warning-border-hover);
+    --color-warning-solid: var(--warning-solid);
+    --color-warning-solid-hover: var(--warning-solid-hover);
+    --color-warning-text: var(--warning-text);
+    --color-warning-text-contrast: var(--warning-text-contrast);
+    --color-warning-on-warning: var(--warning-on-warning);
+
+    --color-alert-base: var(--alert-base);
+    --color-alert-bg-subtle: var(--alert-bg-subtle);
+    --color-alert-bg: var(--alert-bg);
+    --color-alert-bg-hover: var(--alert-bg-hover);
+    --color-alert-bg-active: var(--alert-bg-active);
+    --color-alert-line: var(--alert-line);
+    --color-alert-border: var(--alert-border);
+    --color-alert-border-hover: var(--alert-border-hover);
+    --color-alert-solid: var(--alert-solid);
+    --color-alert-solid-hover: var(--alert-solid-hover);
+    --color-alert-text: var(--alert-text);
+    --color-alert-text-contrast: var(--alert-text-contrast);
+    --color-alert-on-alert: var(--alert-on-alert);
+
+    --color-info-base: var(--info-base);
+    --color-info-bg-subtle: var(--info-bg-subtle);
+    --color-info-bg: var(--info-bg);
+    --color-info-bg-hover: var(--info-bg-hover);
+    --color-info-bg-active: var(--info-bg-active);
+    --color-info-line: var(--info-line);
+    --color-info-border: var(--info-border);
+    --color-info-border-hover: var(--info-border-hover);
+    --color-info-solid: var(--info-solid);
+    --color-info-solid-hover: var(--info-solid-hover);
+    --color-info-text: var(--info-text);
+    --color-info-text-contrast: var(--info-text-contrast);
+    --color-info-on-info: var(--info-on-info);
+  }
+}
+
+/* Custom dashboard card border style */
+.dashboard-card-border {
+  border-width: 1px 4px 4px 1px;
+  border-style: solid;
+  border-color: var(--primary-bg);
+}
+
+/* Custom input focus styles */
+input:focus {
+  outline: none !important;
+  border-color: var(--fg-text-contrast) !important;
+  ring: 2px var(--fg-text-contrast) !important;
+}
+
+@layer utilities {
+  .border-r-6 {
+    border-right-width: 6px;
+  }
+  
+  .border-b-6 {
+    border-bottom-width: 6px;
+  }
+}
+
+/* Font classes for consistent typography */
+.font-clash-display {
+  font-family: 'Clash Display Variable', 'Clash Display', sans-serif;
+}
+
+.title-font {
+  font-family: 'Clash Display Variable', 'Clash Display', sans-serif;
+}
+
+.label-font {
+  font-family: 'Clash Display Variable', 'Clash Display', sans-serif;
+}
