@@ -8,21 +8,45 @@ export async function GET(request: NextRequest) {
   // by the `@supabase/ssr` package. It exchanges an auth code for the user's session.
   const requestUrl = new URL(request.url);
   const code = requestUrl.searchParams.get('code');
+  const error = requestUrl.searchParams.get('error');
+  const errorDescription = requestUrl.searchParams.get('error_description');
+
+  // Handle OAuth errors (e.g., user denied access, invalid client, etc.)
+  if (error) {
+    console.error('OAuth error:', error, errorDescription);
+    return NextResponse.redirect(
+      getErrorRedirect(
+        `${requestUrl.origin}/signin`,
+        error,
+        errorDescription || "Authentication failed. Please try again.",
+      ),
+    );
+  }
 
   if (code) {
     const supabase = await createClient();
 
-    const { error } = await supabase.auth.exchangeCodeForSession(code);
+    const { error: exchangeError } = await supabase.auth.exchangeCodeForSession(code);
 
-    if (error) {
+    if (exchangeError) {
+      console.error('Session exchange error:', exchangeError);
       return NextResponse.redirect(
         getErrorRedirect(
           `${requestUrl.origin}/signin`,
-          error.name,
-          "Sorry, we weren't able to log you in. Please try again.",
+          exchangeError.name,
+          exchangeError.message || "Sorry, we weren't able to log you in. Please try again.",
         ),
       );
     }
+  } else {
+    // No code provided - redirect to signin with error
+    return NextResponse.redirect(
+      getErrorRedirect(
+        `${requestUrl.origin}/signin`,
+        'no_code',
+        "No authorization code received. Please try signing in again.",
+      ),
+    );
   }
 
   // URL to redirect to after sign in process completes
